@@ -50,5 +50,7 @@ services:
     environment:
       - NODE_ENV=development
       - COOKIE_SECRET=YOUR_COOKIE_SECRET
+      - NER=corenlp
+      - NO_KEYWORDS=
     networks:
       sf-net:
