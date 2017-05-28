@@ -44,6 +44,8 @@ services:
     environment:
       - NODE_ENV=production
       - COOKIE_SECRET=YOUR_COOKIE_SECRET
+      - NER=corenlp
+      - NO_KEYWORDS=
     restart: unless-stopped
     networks:
       sf-net:
