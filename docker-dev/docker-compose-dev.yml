@@ -1,0 +1,54 @@
+#
+# docker-compose -p sr -f docker-compose-dev.yml up
+#
+# or
+# docker-compose -p sr -f docker-compose-dev.yml up --build
+# docker-compose -p sr -f docker-compose-dev.yml up -d
+#
+# docker-compose -p sr -f docker-compose-dev.yml down
+#
+version: '3'
+
+networks:
+  sf-net:
+
+services:
+  sf-mysql:
+    image: "mysql:5.5.51"
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=storyfinder
+      - MYSQL_USER=storyfinder
+      - MYSQL_PORT=3306
+      - MYSQL_PASSWORD=storyfinder
+    volumes:
+      - ${PWD}/../mysql-data:/var/lib/mysql
+    networks:
+      sf-net:
+        aliases:
+          - mysql
+
+  sf-corenlp:
+    image: "kisad/corenlp-german:latest"
+    networks:
+      sf-net:
+        aliases:
+          - corenlp
+
+  sf-server-dev:
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    ports:
+      - "3056:3055"
+    volumes:
+      - ../:/usr/src/app
+    stdin_open: true
+    tty: true
+    working_dir: /usr/src/app
+    entrypoint: bash
+    environment:
+      - NODE_ENV=development
+      - COOKIE_SECRET=YOUR_COOKIE_SECRET
+    networks:
+      sf-net:
