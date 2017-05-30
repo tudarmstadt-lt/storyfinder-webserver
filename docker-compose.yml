@@ -1,4 +1,6 @@
 #
+# replace 'sr' with your initials
+#
 # docker-compose -p sr up -d
 #
 # or
