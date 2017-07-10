@@ -24,7 +24,7 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_PASSWORD=storyfinder
     volumes:
-      - ${PWD}/mysql-data:/var/lib/mysql
+      - ${PWD}/sf-mysql-data:/var/lib/mysql
     networks:
       sf-net:
         aliases:
