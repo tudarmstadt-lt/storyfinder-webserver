@@ -1,9 +1,12 @@
 #
-# build and run via docker-compose
+# StoryFinder build
 #
-FROM node:6.9.1
+FROM node:6
 
-RUN DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y --no-install-recommends apt-utils &&  apt-get install -y libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-dev build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+  && apt-get install -y --no-install-recommends apt-utils \
+  && apt-get install -y libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-dev build-essential \
+  && apt-get clean
 
 RUN mkdir -p /usr/src/app
 

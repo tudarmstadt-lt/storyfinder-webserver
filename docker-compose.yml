@@ -1,22 +1,20 @@
 #
-# replace 'sr' with your initials
-#
-# docker-compose -p sr up -d
+# docker-compose -p storyfinder up
 #
 # or
+# docker-compose -p storyfinder --build
+# docker-compose -p storyfinder up -d
 #
-# docker-compose -p sr up -d
+# docker-compose -p storyfinder down
 #
-# docker-compose -p sr down
-#
-version: '3'
+version: '2.2'
 
 networks:
   sf-net:
 
 services:
-  sf-mysql:
-    image: "mysql:5.5.51"
+  mysqlserver:
+    image: "mysql:5"
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=storyfinder
@@ -24,20 +22,39 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_PASSWORD=storyfinder
     volumes:
-      - ${PWD}/sf-mysql-data:/var/lib/mysql
+      - ${PWD}/../mysql-data:/var/lib/mysql
+    command: ["--character-set-server=utf8", "--collation-server=utf8_bin"]
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-pstoryfinder", "-ustoryfinder"]
+      interval: 20s
+      timeout: 10s
+      retries: 3
     networks:
       sf-net:
         aliases:
           - mysql
 
-  sf-corenlp:
+  corenlpserver:
     image: "kisad/corenlp-german:latest"
+    healthcheck:
+      #test: ["CMD", "echo", "hello world!"]
+      test: wget --post-data 'The quick brown fox jumped over the lazy dog.' 'localhost:9000/?properties={"annotators":"tokenize,ssplit,pos,ner","outputFormat":"json"}' -O -
+      interval: 90s
+      timeout: 10s
+      retries: 3
+    mem_limit: 4g
+    memswap_limit: 5g
     networks:
       sf-net:
         aliases:
           - corenlp
 
-  sf-server:
+  webserver:
+    depends_on:
+      mysqlserver:
+        condition: service_healthy
+      corenlpserver:
+        condition: service_healthy
     build:
       context: ./
       dockerfile: Dockerfile
@@ -45,9 +62,11 @@ services:
       - "3055:3055"
     environment:
       - NODE_ENV=production
-      - COOKIE_SECRET=YOUR_COOKIE_SECRET
+      - COOKIE_SECRET=92bls37gfc
       - NER=corenlp
-      - NO_KEYWORDS=
+      - NO_KEYWORDS=T
     restart: unless-stopped
+    mem_limit: 4g
+    memswap_limit: 5g
     networks:
       sf-net:
