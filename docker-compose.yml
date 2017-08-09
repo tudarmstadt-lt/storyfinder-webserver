@@ -7,7 +7,7 @@
 #
 # docker-compose -p storyfinder down
 #
-version: '2.2'
+version: '2.1'
 
 networks:
   sf-net:
