@@ -14,15 +14,15 @@ networks:
 
 services:
   mysqlserver:
-    image: "mysql:5"
+    image: "mysql:5.5"
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=storyfinder
       - MYSQL_USER=storyfinder
       - MYSQL_PORT=3306
       - MYSQL_PASSWORD=storyfinder
-    volumes:
-      - ${PWD}/../mysql-data:/var/lib/mysql
+    #volumes:
+    #  - ${PWD}/mysql-data:/var/lib/mysql
     command: ["--character-set-server=utf8", "--collation-server=utf8_bin"]
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-pstoryfinder", "-ustoryfinder"]
