@@ -300,9 +300,9 @@ function receiveCreateRelation(data) {
 /*export function selectLayer(path, layerId) {
 	return function(dispatch){
 		path = path.push(layerId);
-		
+
 		dispatch(requestLayers(path));
-	
+
 		return fetch('http://127.0.0.1:3000/Layers.json?path=' + path.toJS().join('/') + '&fields=data')
 			.then(response => response.json())
 			.then(json => {
@@ -655,17 +655,17 @@ module.exports = function (store) {
 
 	/*document.querySelector('#btn').addEventListener('click', nextSite);
  document.querySelector('#btn-current').addEventListener('click', current);
- 
+
  document.querySelector('#btn-focus').addEventListener('click', function(){
  	d3.json('/1/sites/' + siteId + '/graph', function (error, graph) {
  		d3.select('svg').attr('class', 'grayscale');
  		siteId++;
  		vis.focus(graph, function(){
- 			
+
  		});
  	});
  });
- 
+
  document.querySelector('#btn-gray').addEventListener('click', function(){
  	d3.select('svg').attr('class', 'grayscale');
  });*/
@@ -701,7 +701,7 @@ module.exports = function (store) {
 	svgDelegate.on('click', '.actions-link', function (event) {
 		vis.toggleLinkMode(this.parentNode.parentNode.parentNode);
 		/*vis.toggleNode(this.parentNode.parentNode.parentNode, function(){
-  	
+
   });*/
 		return false;
 	});
@@ -865,7 +865,7 @@ module.exports = function (store) {
 			focusSite(id);
 			return false;
 		} else {
-			//menu.classList.remove('active');	
+			//menu.classList.remove('active');
 			this.classList.add('focused');
 
 			var ids = [];
@@ -1067,7 +1067,7 @@ module.exports = function (store) {
 	});
 
 	/*
- Plugin Events	
+ Plugin Events
  */
 
 	document.querySelector('.btn-photo').addEventListener('click', function () {
@@ -1081,10 +1081,15 @@ module.exports = function (store) {
 	function receiveMessage(event) {
 		var origin = event.origin || event.originalEvent.origin; // For Chrome, the origin property is in the event.originalEvent object.
 
-		if (origin !== "resource://storyfinder-at-lt-dot-informatik-dot-tu-darmstadt-dot-de" && origin !== "resource://storyfinder") {
-			console.log('Origin mismatch:', origin);
-			return;
-		}
+    // show the event for debugging purposes
+    // TODO: deleteme
+    console.log(event);
+
+    // TODO FIXME: check if origin is available somehow
+		// if (origin !== "resource://storyfinder-at-lt-dot-informatik-dot-tu-darmstadt-dot-de" && origin !== "resource://storyfinder") {
+		// 	console.log('Origin mismatch:', origin);
+		// 	return;
+		// }
 
 		switch (event.data.action) {
 			case 'open':
@@ -1583,7 +1588,7 @@ module.exports = function (store) {
 		if (arguments.length > 2 && arguments[2] != null) addFocus = arguments[2];
 
 		/*
-  Nur die #topNodes Top Knoten und davon jeweils die #leafs wichtigsten Nachbarn werden gerendert	
+  Nur die #topNodes Top Knoten und davon jeweils die #leafs wichtigsten Nachbarn werden gerendert
   */
 		var pageRankByNode = _.map(nodes, function (node) {
 			if (addFocus) {
@@ -1752,7 +1757,7 @@ module.exports = function (store) {
 		}
 
 		/*
-  	Links by Node	
+  	Links by Node
   */
 		var linksByNode = {};
 
@@ -1839,7 +1844,7 @@ module.exports = function (store) {
 		}
 
 		/*
-  HiddenLinks einfuegen	
+  HiddenLinks einfuegen
   */
 		for (var i = 1; i < rGraphGroups.length; i++) {
 			if (!_.isNull(rGraphGroups[i])) {
@@ -1878,7 +1883,7 @@ module.exports = function (store) {
 		}
 
 		/*
-  	Liste der geloeschten Knoten erstellen	
+  	Liste der geloeschten Knoten erstellen
   */
 
 		var nodesInRenderGraphById = {};
@@ -1911,7 +1916,7 @@ module.exports = function (store) {
 		var focused = null,
 		    linkProb = 0.85 //high numbers are more stable
 		,
-		    tolerance = 0.0001 //sensitivity for accuracy of convergence. 
+		    tolerance = 0.0001 //sensitivity for accuracy of convergence.
 		;
 
 		if (arguments.length > 0 && !_.isNull(arguments[0])) linkProb = arguments[0];
@@ -2208,7 +2213,7 @@ var cola;
             }
             return Math.abs(get_real_ratio() - desired_ratio);
         }
-        // looking for a position to one box 
+        // looking for a position to one box
         function put_rect(rect, max_width) {
             var parent = undefined;
             for (var i = 0; i < line.length; i++) {
@@ -2428,7 +2433,7 @@ var cola;
             };
             // calculate lagrangian multipliers on constraints and
             // find the active constraint in this block with the smallest lagrangian.
-            // if the lagrangian is negative, then the constraint is a split candidate.  
+            // if the lagrangian is negative, then the constraint is a split candidate.
             Block.prototype.findMinLM = function () {
                 var m = null;
                 this.compute_lm(this.vars[0], null, function (c) {
@@ -2588,7 +2593,7 @@ var cola;
                     return b.updateWeightedPosition();
                 });
             };
-            // split each block across its constraint with the minimum lagrangian 
+            // split each block across its constraint with the minimum lagrangian
             Blocks.prototype.split = function (inactive) {
                 var _this = this;
                 this.updateBlockPositions();
@@ -2654,7 +2659,7 @@ var cola;
                     private getId(v: Variable): number {
                         return this.vs.indexOf(v);
                     }
-            
+
                     // sanity check of the index integrity of the inactive list
                     checkInactive(): void {
                         var inactiveCount = 0;
@@ -5411,8 +5416,8 @@ var cola;
             Calculator.prototype.PathFromNodeToNode = function (start, end) {
                 return this.dijkstraNeighbours(start, end);
             };
-            // find shortest path from start to end, with the opportunity at 
-            // each edge traversal to compute a custom cost based on the 
+            // find shortest path from start to end, with the opportunity at
+            // each edge traversal to compute a custom cost based on the
             // previous edge.  For example, to penalise bends.
             Calculator.prototype.PathFromNodeToNodeWithPrevCost = function (start, end, prevCost) {
                 var q = new PriorityQueue(function (a, b) {
@@ -6138,7 +6143,7 @@ var cola;
             v.px = v.x;
             v.py = v.y;
         };
-        // we store offsets for each node relative to the centre of the ancestor group 
+        // we store offsets for each node relative to the centre of the ancestor group
         // being dragged in a pair of properties on the node
         Layout.storeOffset = function (d, origin) {
             if (typeof d.leaves !== 'undefined') {
@@ -6189,7 +6194,7 @@ var cola;
             }
         };
         // we unset only bits 2 and 3 so that the user can fix nodes with another a different
-        // bit such that the lock persists between drags 
+        // bit such that the lock persists between drags
         Layout.dragEnd = function (d) {
             if (isGroup(d)) {
                 if (typeof d.leaves !== 'undefined') {
@@ -6522,7 +6527,7 @@ var cola;
             });
             this.cols = this.getGridLines('x');
             this.rows = this.getGridLines('y');
-            // create parents for each node or group that is a member of another's children 
+            // create parents for each node or group that is a member of another's children
             this.groups.forEach(function (v) {
                 return v.children.forEach(function (c) {
                     return _this.nodes[c].parent = v;
@@ -6764,7 +6769,7 @@ var cola;
             return vsegmentsets;
         };
         // for all segments in this bundle create a vpsc problem such that
-        // each segment's x position is a variable and separation constraints 
+        // each segment's x position is a variable and separation constraints
         // are given by the partial order over the edges to which the segments belong
         // for each pair s1,s2 of segments in the open set:
         //   e1 = edge of s1, e2 = edge of s2
@@ -6928,7 +6933,7 @@ var cola;
                     var u, vi, vj;
                     if (lcs.length === 0) continue; // no common subpath
                     if (lcs.reversed) {
-                        // if we found a common subpath but one of the edges runs the wrong way, 
+                        // if we found a common subpath but one of the edges runs the wrong way,
                         // then reverse f.
                         f.reverse();
                         f.reversed = true;
@@ -6942,7 +6947,7 @@ var cola;
                     if (lcs.si + lcs.length >= e.length || lcs.ti + lcs.length >= f.length) {
                         // if the common subsequence of the
                         // two edges being considered goes all the way to the
-                        // end of one (or both) of the lines then we have to 
+                        // end of one (or both) of the lines then we have to
                         // base our ordering decision on the other end of the
                         // common subsequence
                         u = e[lcs.si + 1];
@@ -8444,7 +8449,7 @@ module.exports = function(arraybuffer, start, end) {
         var memoized = _restParam(function memoized(args) {
             var callback = args.pop();
             var key = hasher.apply(null, args);
-            if (has.call(memo, key)) {   
+            if (has.call(memo, key)) {
                 async.setImmediate(function () {
                     callback.apply(null, memo[key]);
                 });
@@ -10427,7 +10432,7 @@ module.exports = function(a, b){
           svg.remove();
         }
       }
-      if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX, 
+      if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX,
       point.y = e.clientY;
       point = point.matrixTransform(container.getScreenCTM().inverse());
       return [ point.x, point.y ];
@@ -10802,7 +10807,7 @@ module.exports = function(a, b){
     }
     function mousewheeled() {
       var dispatch = event.of(this, arguments);
-      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this), 
+      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this),
       translate0 = location(center0 = center || d3.mouse(this)), zoomstarted(dispatch);
       mousewheelTimer = setTimeout(function() {
         mousewheelTimer = null;
@@ -11171,7 +11176,7 @@ module.exports = function(a, b){
   d3.xhr = d3_xhrType(d3_identity);
   function d3_xhrType(response) {
     return function(url, mimeType, callback) {
-      if (arguments.length === 2 && typeof mimeType === "function") callback = mimeType, 
+      if (arguments.length === 2 && typeof mimeType === "function") callback = mimeType,
       mimeType = null;
       return d3_xhr(url, mimeType, response, callback);
     };
@@ -12012,7 +12017,7 @@ module.exports = function(a, b){
     return n ? (date.y = d3_time_expandYear(+n[0]), i + n[0].length) : -1;
   }
   function d3_time_parseZone(date, string, i) {
-    return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5)) ? (date.Z = -string, 
+    return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5)) ? (date.Z = -string,
     i + 5) : -1;
   }
   function d3_time_expandYear(d) {
@@ -12205,7 +12210,7 @@ module.exports = function(a, b){
     var λ00, φ00, λ0, cosφ0, sinφ0;
     d3_geo_area.point = function(λ, φ) {
       d3_geo_area.point = nextPoint;
-      λ0 = (λ00 = λ) * d3_radians, cosφ0 = Math.cos(φ = (φ00 = φ) * d3_radians / 2 + π / 4), 
+      λ0 = (λ00 = λ) * d3_radians, cosφ0 = Math.cos(φ = (φ00 = φ) * d3_radians / 2 + π / 4),
       sinφ0 = Math.sin(φ);
     };
     function nextPoint(λ, φ) {
@@ -14034,7 +14039,7 @@ module.exports = function(a, b){
       return _ ? center([ -_[1], _[0] ]) : (_ = center(), [ _[1], -_[0] ]);
     };
     projection.rotate = function(_) {
-      return _ ? rotate([ _[0], _[1], _.length > 2 ? _[2] + 90 : 90 ]) : (_ = rotate(), 
+      return _ ? rotate([ _[0], _[1], _.length > 2 ? _[2] + 90 : 90 ]) : (_ = rotate(),
       [ _[0], _[1], _[2] - 90 ]);
     };
     return rotate([ 0, 0, 90 ]);
@@ -14888,7 +14893,7 @@ module.exports = function(a, b){
     };
     quadtree.extent = function(_) {
       if (!arguments.length) return x1 == null ? null : [ [ x1, y1 ], [ x2, y2 ] ];
-      if (_ == null) x1 = y1 = x2 = y2 = null; else x1 = +_[0][0], y1 = +_[0][1], x2 = +_[1][0], 
+      if (_ == null) x1 = y1 = x2 = y2 = null; else x1 = +_[0][0], y1 = +_[0][1], x2 = +_[1][0],
       y2 = +_[1][1];
       return quadtree;
     };
@@ -16613,7 +16618,7 @@ module.exports = function(a, b){
         return d3_layout_treemapPad(node, x);
       }
       var type;
-      pad = (padding = x) == null ? d3_layout_treemapPadNull : (type = typeof x) === "function" ? padFunction : type === "number" ? (x = [ x, x, x, x ], 
+      pad = (padding = x) == null ? d3_layout_treemapPadNull : (type = typeof x) === "function" ? padFunction : type === "number" ? (x = [ x, x, x, x ],
       padConstant) : padConstant;
       return treemap;
     };
@@ -17016,7 +17021,7 @@ module.exports = function(a, b){
     };
     scale.rangePoints = function(x, padding) {
       if (arguments.length < 2) padding = 0;
-      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = (start + stop) / 2, 
+      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = (start + stop) / 2,
       0) : (stop - start) / (domain.length - 1 + padding);
       range = steps(start + step * padding / 2, step);
       rangeBand = 0;
@@ -17028,7 +17033,7 @@ module.exports = function(a, b){
     };
     scale.rangeRoundPoints = function(x, padding) {
       if (arguments.length < 2) padding = 0;
-      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = stop = Math.round((start + stop) / 2), 
+      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = stop = Math.round((start + stop) / 2),
       0) : (stop - start) / (domain.length - 1 + padding) | 0;
       range = steps(start + Math.round(step * padding / 2 + (stop - start - (domain.length - 1 + padding) * step) / 2), step);
       rangeBand = 0;
@@ -17456,7 +17461,7 @@ module.exports = function(a, b){
     return points.length < 4 ? d3_svg_lineLinear(points) : points[1] + d3_svg_lineHermite(points.slice(1, -1), d3_svg_lineCardinalTangents(points, tension));
   }
   function d3_svg_lineCardinalClosed(points, tension) {
-    return points.length < 3 ? d3_svg_lineLinearClosed(points) : points[0] + d3_svg_lineHermite((points.push(points[0]), 
+    return points.length < 3 ? d3_svg_lineLinearClosed(points) : points[0] + d3_svg_lineHermite((points.push(points[0]),
     points), d3_svg_lineCardinalTangents([ points[points.length - 2] ].concat(points, [ points[1] ]), tension));
   }
   function d3_svg_lineCardinal(points, tension) {
@@ -18229,7 +18234,7 @@ module.exports = function(a, b){
         var g = d3.select(this);
         var scale0 = this.__chart__ || scale, scale1 = this.__chart__ = scale.copy();
         var ticks = tickValues == null ? scale1.ticks ? scale1.ticks.apply(scale1, tickArguments_) : scale1.domain() : tickValues, tickFormat = tickFormat_ == null ? scale1.tickFormat ? scale1.tickFormat.apply(scale1, tickArguments_) : d3_identity : tickFormat_, tick = g.selectAll(".tick").data(ticks, scale1), tickEnter = tick.enter().insert("g", ".domain").attr("class", "tick").style("opacity", ε), tickExit = d3.transition(tick.exit()).style("opacity", ε).remove(), tickUpdate = d3.transition(tick.order()).style("opacity", 1), tickSpacing = Math.max(innerTickSize, 0) + tickPadding, tickTransform;
-        var range = d3_scaleRange(scale1), path = g.selectAll(".domain").data([ 0 ]), pathUpdate = (path.enter().append("path").attr("class", "domain"), 
+        var range = d3_scaleRange(scale1), path = g.selectAll(".domain").data([ 0 ]), pathUpdate = (path.enter().append("path").attr("class", "domain"),
         d3.transition(path));
         tickEnter.append("line");
         tickEnter.append("text");
@@ -19463,7 +19468,7 @@ Delegate.prototype.handle = function(event) {
   root = this.rootElement;
 
   phase = event.eventPhase || ( event.target !== event.currentTarget ? 3 : 2 );
-  
+
   switch (phase) {
     case 1: //Event.CAPTURING_PHASE:
       listenerList = this.listenerMap[1][type];
@@ -23371,7 +23376,7 @@ Promise.prototype = {
     The primary way of interacting with a promise is through its `then` method,
     which registers callbacks to receive either a promise's eventual value or the
     reason why the promise cannot be fulfilled.
-  
+
     ```js
     findUser().then(function(user){
       // user is available
@@ -23379,14 +23384,14 @@ Promise.prototype = {
       // user is unavailable, and you are given the reason why
     });
     ```
-  
+
     Chaining
     --------
-  
+
     The return value of `then` is itself a promise.  This second, 'downstream'
     promise is resolved with the return value of the first promise's fulfillment
     or rejection handler, or rejected if the handler throws an exception.
-  
+
     ```js
     findUser().then(function (user) {
       return user.name;
@@ -23396,7 +23401,7 @@ Promise.prototype = {
       // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
       // will be `'default name'`
     });
-  
+
     findUser().then(function (user) {
       throw new Error('Found user, but still unhappy');
     }, function (reason) {
@@ -23409,7 +23414,7 @@ Promise.prototype = {
     });
     ```
     If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
-  
+
     ```js
     findUser().then(function (user) {
       throw new PedagogicalException('Upstream error');
@@ -23421,15 +23426,15 @@ Promise.prototype = {
       // The `PedgagocialException` is propagated all the way down to here
     });
     ```
-  
+
     Assimilation
     ------------
-  
+
     Sometimes the value you want to propagate to a downstream promise can only be
     retrieved asynchronously. This can be achieved by returning a promise in the
     fulfillment or rejection handler. The downstream promise will then be pending
     until the returned promise is settled. This is called *assimilation*.
-  
+
     ```js
     findUser().then(function (user) {
       return findCommentsByAuthor(user);
@@ -23437,9 +23442,9 @@ Promise.prototype = {
       // The user's comments are now available
     });
     ```
-  
+
     If the assimliated promise rejects, then the downstream promise will also reject.
-  
+
     ```js
     findUser().then(function (user) {
       return findCommentsByAuthor(user);
@@ -23449,15 +23454,15 @@ Promise.prototype = {
       // If `findCommentsByAuthor` rejects, we'll have the reason here
     });
     ```
-  
+
     Simple Example
     --------------
-  
+
     Synchronous Example
-  
+
     ```javascript
     let result;
-  
+
     try {
       result = findResult();
       // success
@@ -23465,9 +23470,9 @@ Promise.prototype = {
       // failure
     }
     ```
-  
+
     Errback Example
-  
+
     ```js
     findResult(function(result, err){
       if (err) {
@@ -23477,9 +23482,9 @@ Promise.prototype = {
       }
     });
     ```
-  
+
     Promise Example;
-  
+
     ```javascript
     findResult().then(function(result){
       // success
@@ -23487,15 +23492,15 @@ Promise.prototype = {
       // failure
     });
     ```
-  
+
     Advanced Example
     --------------
-  
+
     Synchronous Example
-  
+
     ```javascript
     let author, books;
-  
+
     try {
       author = findAuthor();
       books  = findBooksByAuthor(author);
@@ -23504,19 +23509,19 @@ Promise.prototype = {
       // failure
     }
     ```
-  
+
     Errback Example
-  
+
     ```js
-  
+
     function foundBooks(books) {
-  
+
     }
-  
+
     function failure(reason) {
-  
+
     }
-  
+
     findAuthor(function(author, err){
       if (err) {
         failure(err);
@@ -23541,9 +23546,9 @@ Promise.prototype = {
       }
     });
     ```
-  
+
     Promise Example;
-  
+
     ```javascript
     findAuthor().
       then(findBooksByAuthor).
@@ -23553,7 +23558,7 @@ Promise.prototype = {
       // something went wrong
     });
     ```
-  
+
     @method then
     @param {Function} onFulfilled
     @param {Function} onRejected
@@ -23565,25 +23570,25 @@ Promise.prototype = {
   /**
     `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
     as the catch block of a try/catch statement.
-  
+
     ```js
     function findAuthor(){
       throw new Error('couldn't find that author');
     }
-  
+
     // synchronous
     try {
       findAuthor();
     } catch(reason) {
       // something went wrong
     }
-  
+
     // async with promises
     findAuthor().catch(function(reason){
       // something went wrong
     });
     ```
-  
+
     @method catch
     @param {Function} onRejection
     Useful for tooling.
@@ -25705,7 +25710,7 @@ module.exports = Hypher;
       var array = this._array;
       var maxIndex = array.length - 1;
       var ii = 0;
-      return new Iterator(function() 
+      return new Iterator(function()
         {return ii > maxIndex ?
           iteratorDone() :
           iteratorValue(type, ii, array[reverse ? maxIndex - ii++ : ii++])}
@@ -26176,7 +26181,7 @@ module.exports = Hypher;
 
     Repeat.prototype.__iterator = function(type, reverse) {var this$0 = this;
       var ii = 0;
-      return new Iterator(function() 
+      return new Iterator(function()
         {return ii < this$0.size ? iteratorValue(type, ii++, this$0._value) : iteratorDone()}
       );
     };
@@ -28374,7 +28379,7 @@ module.exports = Hypher;
         return flipSequence;
       };
     }
-    reversedSequence.get = function(key, notSetValue) 
+    reversedSequence.get = function(key, notSetValue)
       {return iterable.get(useKeys ? key : -1 - key, notSetValue)};
     reversedSequence.has = function(key )
       {return iterable.has(useKeys ? key : -1 - key)};
@@ -28573,7 +28578,7 @@ module.exports = Hypher;
         return this.cacheResult().__iterate(fn, reverse);
       }
       var iterations = 0;
-      iterable.__iterate(function(v, k, c) 
+      iterable.__iterate(function(v, k, c)
         {return predicate.call(context, v, k, c) && ++iterations && fn(v, k, this$0)}
       );
       return iterations;
@@ -28764,7 +28769,7 @@ module.exports = Hypher;
     interposedSequence.size = iterable.size && iterable.size * 2 -1;
     interposedSequence.__iterateUncached = function(fn, reverse) {var this$0 = this;
       var iterations = 0;
-      iterable.__iterate(function(v, k) 
+      iterable.__iterate(function(v, k)
         {return (!iterations || fn(separator, iterations++, this$0) !== false) &&
         fn(v, iterations++, this$0) !== false},
         reverse
@@ -48703,10 +48708,10 @@ function plural(ms, n, name) {
 "use strict";
 // pagerank.js 0.0.1
 
-//Use a random surfer algorithm to determine the relative 
+//Use a random surfer algorithm to determine the relative
 //rank of nodes. The importance of each node is determined
-//by the number of incoming links as well as the importance 
-//of those incoming links. 
+//by the number of incoming links as well as the importance
+//of those incoming links.
 
 // Expose
 // ----------
@@ -48718,7 +48723,7 @@ module.exports = function (nodeMatrix, linkProb, tolerance, callback, debug) {
             "nodeMatrix, link probability, tolerance, callback");
     }
     //If debug is unset set it to false
-    if (!debug) { 
+    if (!debug) {
         debug=false;
     }
     return new Pagerank(nodeMatrix, linkProb, tolerance, callback, debug);
@@ -48727,14 +48732,14 @@ module.exports = function (nodeMatrix, linkProb, tolerance, callback, debug) {
 // Initialize
 // ----------
 function Pagerank(nodeMatrix, linkProb, tolerance, callback, debug) {
-    //**OutgoingNodes:** represents an array of nodes. Each node in this 
+    //**OutgoingNodes:** represents an array of nodes. Each node in this
     //array contains an array of nodes to which the corresponding node has
     //outgoing links.
     this.outgoingNodes = nodeMatrix;
     //**LinkProb:** a value ??
     this.linkProb = linkProb;
-    //**Tolerance:** the point at which a solution is deemed optimal. 
-    //Higher values are more accurate, lower values are faster to computer. 
+    //**Tolerance:** the point at which a solution is deemed optimal.
+    //Higher values are more accurate, lower values are faster to computer.
     this.tolerance = tolerance;
     this.callback = callback;
 
@@ -48742,29 +48747,29 @@ function Pagerank(nodeMatrix, linkProb, tolerance, callback, debug) {
     this.pageCount = Object.keys(this.outgoingNodes).length;
     //**Coeff:** coefficient for the likelihood that a page will be visited.
     this.coeff = (1-linkProb)/this.pageCount;
-    
+
     this.probabilityNodes = !(nodeMatrix instanceof Array) ? {} : [];
     this.incomingNodes = !(nodeMatrix instanceof Array) ? {} : [];
     this.debug=debug;
-    
+
     this.startRanking();
 }
 
-//Start ranking 
+//Start ranking
 // ----------
 Pagerank.prototype.startRanking = function () {
 
     //we initialize all of our probabilities
-    var initialProbability = 1/this.pageCount, 
+    var initialProbability = 1/this.pageCount,
         outgoingNodes = this.outgoingNodes, i, a, index;
-    
+
     //rearray the graph and generate initial probability
     for (i in outgoingNodes) {
         this.probabilityNodes[i]=initialProbability;
         for (a in outgoingNodes[i]) {
             index = outgoingNodes[i][a];
             if (!this.incomingNodes[index]) {
-                this.incomingNodes[index]=[]; 
+                this.incomingNodes[index]=[];
             }
             this.incomingNodes[index].push(i);
         }
@@ -48772,11 +48777,11 @@ Pagerank.prototype.startRanking = function () {
 
     //if debug is set, print each iteration
     if (this.debug) this.reportDebug(1)
-    
+
     this.iterate(1);
 };
 
-//Log iteration to console 
+//Log iteration to console
 // ----------
 Pagerank.prototype.reportDebug = function (count) {
     console.log("____ITERATION "+count+"____");
@@ -48787,17 +48792,17 @@ Pagerank.prototype.reportDebug = function (count) {
 };
 
 
-//Calculate new weights 
+//Calculate new weights
 // ----------
 Pagerank.prototype.iterate = function(count) {
     var result = [];
     var resultHash={};
     var prob, ct, b, a, sum, res, max, min;
 
-    //For each node, we look at the incoming edges and 
-    //the weight of the node connected via each edge. 
-    //This weight is divided by the total number of 
-    //outgoing edges from each weighted node and summed to 
+    //For each node, we look at the incoming edges and
+    //the weight of the node connected via each edge.
+    //This weight is divided by the total number of
+    //outgoing edges from each weighted node and summed to
     //determine the new weight of the original node.
     for (b in this.probabilityNodes) {
         sum = 0;
@@ -48812,14 +48817,14 @@ Pagerank.prototype.iterate = function(count) {
         //determine if the new probability is within tolerance.
         res = this.coeff+this.linkProb*sum;
         max = this.probabilityNodes[b]+this.tolerance;
-        min = this.probabilityNodes[b]-this.tolerance;   
+        min = this.probabilityNodes[b]-this.tolerance;
 
         //if the result has changed push that result
         if (min <= res && res<= max) {
             resultHash[b]=res;
             result.push(res);
         }
-    
+
         //update the probability for node *b*
         this.probabilityNodes[b]=res;
     }
@@ -48831,12 +48836,12 @@ Pagerank.prototype.iterate = function(count) {
         }
         return this.callback(null, result);
     }
-    
+
     //if debug is set, print each iteration
     if (this.debug) {
-        this.reportDebug(count); 
+        this.reportDebug(count);
     }
-    
+
     ++count;
     return this.iterate(count);
 };
@@ -51294,7 +51299,7 @@ function tryParse(p, str) {
   } catch(e){
     return error();
   }
-  return p; 
+  return p;
 };
 
 /**
@@ -52986,7 +52991,7 @@ var initialState = _immutable2.default.Map({
 		layerIds = layerIds.push(layer.id);
 		state = state.setIn(['layers', layer.id], new Immutable.fromJS(layer));
 	});
-	
+
 	state = state.set('isFetching', false);
 	if(path.size == 1){
 		state = state.setIn(['groups', parentId, 'children'], layerIds);
@@ -54014,7 +54019,7 @@ module.exports = function Vis(store) {
  backgroundGradient.append('stop')
  	.attr('offset', '25.01%')
  	.style('stop-color','rgb(255,255,255)')
- 	;				
+ 	;
  backgroundGradient.append('stop')
  	.attr('offset', '50%')
  	.style('stop-color','rgb(255,255,255)')
@@ -54048,7 +54053,7 @@ module.exports = function Vis(store) {
 	gAdd.attr('transform', 'translate(' + (width - 58) + ', ' + (height - 58) + '), scale(2)');
 
 	/*
- Delegates	
+ Delegates
  */
 	visDelegate.on('mouseover', '.label', function () {
 		if (!_.isNull(labelDragged)) {
@@ -54150,7 +54155,7 @@ module.exports = function Vis(store) {
 
 			/*if(d.x > width - 100 && d.y > height - 100)
    	d.x = width - 100;
-   	
+
    if(d.x < 100 && d.y < 100)
    	d.x = 100;*/
 
@@ -54177,7 +54182,7 @@ module.exports = function Vis(store) {
 	}
 
 	/*
- 	Neues Layout berechnen	
+ 	Neues Layout berechnen
  */
 	function calculateNewLayout(done) {
 		//layout berechnen
@@ -54202,14 +54207,14 @@ module.exports = function Vis(store) {
 
 		/*layoutNodes.forEach(function(d){
   	var pagerank = 0.5;
-  	
+
   	if(!_.isUndefined(getScalingFactor(d)))
   		pagerank = getScalingFactor(d);
-  		
+
   	pagerank = pagerank / 2 + 0.75;
-  	
+
   	console.log(pagerank);
-  	
+
   	d.width = options.labelRadius * pagerank * 2 + 20;
   	d.height = options.labelRadius * pagerank * 2 + 20;
   	console.log(d.width, d.height);
@@ -54240,7 +54245,7 @@ module.exports = function Vis(store) {
 		d3cola.stop();
 
 		/*
-  	Neue Daten setzen	
+  	Neue Daten setzen
   */
 		link = gLinks.selectAll(".link").data(renderGraph.links);
 
@@ -54249,7 +54254,7 @@ module.exports = function Vis(store) {
 		label = gLabels.selectAll(".label").data(renderNodes);
 
 		/*
-  Nicht mehr benoetigte Links und Knoten loeschen	
+  Nicht mehr benoetigte Links und Knoten loeschen
   */
 		link.exit().remove();
 		node.exit().remove();
@@ -54331,7 +54336,7 @@ module.exports = function Vis(store) {
 	/*store.subscribe(() => {
  	var state = store.getState().storyfinder;
  	switch(state.get('state')){
- 		
+
  	}
  });*/
 
@@ -54740,7 +54745,7 @@ module.exports = function Vis(store) {
 		/*var title = d3.select('.graph-title');
   	title.attr('class', 'graph-title')
   	;*
-  	
+
   title.select('.caption')
   	.text('Global graph')
   	.select('small')
@@ -54820,7 +54825,7 @@ module.exports = function Vis(store) {
 	this.selectNode = selectNode;
 
 	/*
- Open a node in the sidebar	
+ Open a node in the sidebar
  */
 	function openNode(el, node, nodeData, transitionTime) {
 		if (!_.isNull(d3cola)) d3cola.stop();
@@ -54833,7 +54838,7 @@ module.exports = function Vis(store) {
 
 		removeSelection();
 
-		//console.log('opening node ' + nodeData.id);						
+		//console.log('opening node ' + nodeData.id);
 		svg.attr('class', svg.attr('class') + ' node-selected selected-' + nodeData.type);
 		node.attr('class', node.attr('class') + ' selected');
 
@@ -54874,7 +54879,7 @@ module.exports = function Vis(store) {
 		});
 
 		/*
-  Platz um das Element herum schaffen	
+  Platz um das Element herum schaffen
   */
 		var newPosition = {
 			x: nodeData.x, //Math.min(Math.max(nodeData.x, oWidth / 2), width - oWidth / 2),
@@ -55427,7 +55432,7 @@ module.exports = function (options, elNew, elExisting, renderGraph, node, label,
 	}
 
 	/*
- 	Die Liste der Knoten in neue Knoten und bereits vorhandene Knoten aufteilen	
+ 	Die Liste der Knoten in neue Knoten und bereits vorhandene Knoten aufteilen
  */
 	function splitNodes() {
 		//Alte und neue Nodes splitten
@@ -55464,7 +55469,7 @@ module.exports = function (options, elNew, elExisting, renderGraph, node, label,
 	}
 
 	/*
- 		
+
  */
 	function renderNode(d) {
 		if (d.more > 0) {
@@ -55596,7 +55601,7 @@ module.exports = function (options, elNew, elExisting, renderGraph, node, label,
 				}
 
 				if (!fits && d.type == 'PER') {
-					//Position des letzten Leerzeichens ermitteln	
+					//Position des letzten Leerzeichens ermitteln
 					//console.log(hyphens);
 
 					var pos = null;
@@ -55675,7 +55680,7 @@ module.exports = function (options, elNew, elExisting, renderGraph, node, label,
 		d3.select(this).select('rect').attr('height', h).attr('y', 17).attr('width', w).attr('x', w / -2).attr('rx', 5);
 
 		/*
-  	Circle	
+  	Circle
   */
 		d.width = options.labelRadius * 1.5;
 		d.height = options.labelRadius * 1.5;
@@ -55791,7 +55796,7 @@ module.exports = function (options, elNew, elExisting, renderGraph, node, label,
 			return smoothLine({ x: sx, y: sy }, { x: tx, y: ty });
 		})
 		/*.style('stroke', function(d){
-  	return 'url(#' + d.source.type + '-' + d.target.type + '-gradient)';	
+  	return 'url(#' + d.source.type + '-' + d.target.type + '-gradient)';
   })*/;
 
 		link.select('textPath').text(function (d) {
@@ -55814,7 +55819,7 @@ module.exports = function (options, elNew, elExisting, renderGraph, node, label,
 
 		moreLabels.append('text').attr('dy', '.35em');
 
-		//newLabels.append('rect');					
+		//newLabels.append('rect');
 		newLabels.append('text').attr('class', 'caption');
 
 		label.attr('opacity', function (d, i) {
@@ -55975,7 +55980,7 @@ module.exports = function (options, renderGraph, node, label, link) {
 	}
 
 	/*
- 	Geloeschte Elemente im Graphen ausblenden	
+ 	Geloeschte Elemente im Graphen ausblenden
  */
 	function removeDeleted() {
 		var done = arguments[arguments.length - 1];
